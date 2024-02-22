@@ -49,7 +49,11 @@
     <PaginationComponent :pages="pages" :get-products="getProducts"></PaginationComponent>
   </div>
   <!-- Modal -->
-  <ProductModal :update-product="updateProduct" :temp-product="tempProduct"></ProductModal>
+  <ProductModal
+    :update-product="updateProduct"
+    :temp-product="tempProduct"
+    ref="productModal"
+  ></ProductModal>
   <!-- delProductModal -->
   <div
     id="delProductModal"
@@ -104,7 +108,6 @@ export default {
         imagesUrl: [],
       },
       pages: {},
-      ProductModal: null,
       delProductModal: null,
       isNew: false,
     };
@@ -129,14 +132,14 @@ export default {
           imagesUrl: [],
         };
         this.isNew = true;
-        this.ProductModal.show();
+        this.$refs.productModal.openModal();
       } else if (status === 'edit') {
         this.tempProduct = { ...item };
         if (!Array.isArray(this.tempProduct.imagesUrl)) {
           this.tempProduct.imagesUrl = [];
         }
         this.isNew = false;
-        this.ProductModal.show();
+        this.$refs.productModal.openModal();
       } else if (status === 'delete') {
         this.tempProduct = item;
         this.delProductModal.show();
@@ -151,15 +154,11 @@ export default {
         http = 'post';
       }
 
-      axios[http](url, { data: this.tempProduct })
-        .then((res) => {
-          alert(res.data.message);
-          this.productModal.hide();
-          this.getProducts(); // 取得所有產品的函式
-        })
-        .catch((err) => {
-          alert(err.data.message);
-        });
+      axios[http](url, { data: this.tempProduct }).then((res) => {
+        alert(res.data.message);
+        this.$refs.productModal.hideModal();
+        this.getProducts(); // 取得所有產品的函式
+      });
     },
     delProduct() {
       const url = `${VITE_URL}/api/${VITE_PATH}/admin/product/${this.tempProduct.id}`;
