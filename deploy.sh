@@ -21,6 +21,6 @@ git commit -m 'deploy'
 # git push -f git@github.com:aa012003/aa012003.github.io.git main
 
 # 如果你要部署在 https://aa012003.github.io/0223
-git push -f git@github.com:aa012003/0223.git master:gh-pages
+git push -f git@github.com:aa012003/0223.git
 
 cd -
