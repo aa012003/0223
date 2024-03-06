@@ -1,1 +1,0 @@
-import{_ as o,c as t,b as n,F as c,a as r,o as s,r as a}from"./index-jD2wyXsE.js";const _={},l=r("h2",null,"這是首頁",-1);function m(i,u){const e=a("RouterView");return s(),t(c,null,[l,n(e)],64)}const f=o(_,[["render",m]]);export{f as default};
